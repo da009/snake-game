@@ -348,6 +348,7 @@ public class Canvas
             // ignoring exception at the moment
         }
     }
+    
 
     /************************************************************************
      * Inner class CanvasPane - the actual canvas component contained in the

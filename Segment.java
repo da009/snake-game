@@ -1,4 +1,4 @@
- import java.awt.Color;
+import java.awt.Color;
 /**
  * Write a description of class Segment here.
  * 
@@ -7,103 +7,99 @@
  */
 public class Segment
 {
-    // posición en x
-    private int x;
-    // posición en y
-    private int y;
     // final del segmento en x
     private int xFinal;
     // final del segmento en y
     private int yFinal;
+    // posición en x
+    private int posicionX;
+    // posición en y
+  	private int posicionY;
     // dirección del segmento
     private int direccion;
     // color del segmento
-    private Color color;
+  	private Color color;
     // longitud del segmento
-    public static final int LONGITUD_SEGMENTO = 10;
-
+  	public static final int LONGITUD_SEGMENTO = 10;
+    
     /**
-     * Constructor for objects of class Segment
+     * Constructor de la clase Segment
      */
-    public Segment(int x, int y, int direccion, Color color)
+    public Segment(int posX, int posY, int direccion, Color color)
     {
-        this.x = x;
-        this.y = x;
-        this.direccion = direccion;
-        this.xFinal = xFinal;
-        this.yFinal = yFinal;
+      posicionX = posX;
+      posicionY = posY;
+      this.direccion = direccion;
+      this.color = color;
     }
     
+    /**
+     * Devuelve la coordenada del eje X donde acaba el segmento
+     */
     public int getPosicionFinalX()
     {
-      int posicionFinalX = x;
-      // 0
-      if(direccion == 0)
-      {
-        posicionFinalX = x + LONGITUD_SEGMENTO;
+      int posicionFinalX = posicionX;
+      if(direccion == 0){
+        posicionFinalX = posicionX + LONGITUD_SEGMENTO;
       }
-      // 180
-      else if(direccion == 1)
-      {
-        posicionFinalX = x - LONGITUD_SEGMENTO;
+      else if(direccion == 180){
+        posicionFinalX = posicionX - LONGITUD_SEGMENTO;
       }
       return posicionFinalX;
     }
     
-    /*
+    /**
      * Devuelve la coordenada del eje Y donde acaba el segmento
      */
     public int getPosicionFinalY()
     {
-      int posicionFinalY = y;
-      // 90
-      if (direccion == 2)
+      int finaly = posicionY;
+      if (direccion == 90)
       {
-        posicionFinalY = y + LONGITUD_SEGMENTO;
+        finaly = posicionY + LONGITUD_SEGMENTO;
       }
-      // -90
-      else if(direccion == 3)
+      else if(direccion == 270)
       {
-        posicionFinalY = y - LONGITUD_SEGMENTO;
+        finaly = posicionY - LONGITUD_SEGMENTO;
       }
-      return posicionFinalY;
-    }
-
-    /**
-     * dibuja un segmento
-     */
-    public void dibujar(Canvas canvas)
-    {
-        canvas.setForegroundColor(color);
-        canvas.drawLine(x, y, getPosicionFinalX() ,getPosicionFinalY());
+      return finaly;
     }
     
     /**
-     * borra un segmento
+     * Dibuja el segmento en el lienzo
      */
-    public void borrar(Canvas canvas)
+    public void dibujar(Canvas lienzo)
     {
-        canvas.setForegroundColor(canvas.getBackgroundColor());
-        canvas.drawLine(x, y, getPosicionFinalX() ,getPosicionFinalY());
+      lienzo.setForegroundColor(color);
+      lienzo.drawLine(posicionX,posicionY,getPosicionFinalX(),getPosicionFinalY());
     }
     
-    /*
+    /**
+     * Borra el segmento del lienzo
+     */
+    public void borrar(Canvas lienzo)
+    {
+      lienzo.setForegroundColor(lienzo.getBackgroundColor());
+      lienzo.drawLine(posicionX,posicionY,getPosicionFinalX(),getPosicionFinalY());
+    }
+    
+    /**
      * Devuelve la coordenada del eje X donde empieza el segmento
      */
     public int getPosicionInicialX()
     {
-        return x;
+        return posicionX;
     }
     
-    /*
+    /**
      * Devuelve la coordenada del eje Y donde empieza el segmento
      */
     public int getPosicionInicialY()
     {
-        return y;
+        return posicionY;
     }    
     
-    /*
+    /**
      * Devuelve la direccion que tiene el segmento
      */
     public int getDireccion()
@@ -111,12 +107,13 @@ public class Segment
         return direccion;
     }
     
-    /*
-     * Devuelve true si el segmento colisiona con el segmento pasado como
-     * parametro; false en otro caso
+    /**
+     * Devuelve true si el segmento pasado como parametro colisiona con el segmento sobre el
+     * que se invoca el metodo, teniendo en cuenta que el pasado como parametro se supone que
+     * es un nuevo segmento de la serpiente; false en otro caso
      */
     public boolean colisiona(Segment segmento)
     {
-        return (x == segmento.getPosicionFinalX() && y == segmento.getPosicionFinalY());
+        return (posicionX == segmento.getPosicionFinalX() && posicionY == segmento.getPosicionFinalY());
     }
 }
